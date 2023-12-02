@@ -65,7 +65,9 @@ func SumOfCalibrationModels(input []string) (sum int) {
 			}
 			break
 		}
-		number, _ := strconv.Atoi(strconv.Itoa(firstDigit) + strconv.Itoa(secondDigit))
+		// number, _ := strconv.Atoi(strconv.Itoa(firstDigit) + strconv.Itoa(secondDigit)) Previous logic
+		
+		number := firstDigit*10 + secondDigit // Easier logic
 		sum += number
 	}
 
