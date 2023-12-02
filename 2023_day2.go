@@ -15,10 +15,11 @@ func main() {
 func day2Stringslicer(input, sep string) []string {
 	return strings.Split(input, sep)
 }
-func day2SumOfPossibleGames(input []string) (sum int) {
+func day2SumOfPossibleGames(input []string) (sumPossible, sumMin int) {
 	red, green, blue := 12, 13, 14
 
 	for i := range input {
+		minRed, minBlue, minGreen := 0, 0, 0
 		possible := true
 		game, set := day2Stringslicer(input[i], ":")[0], day2Stringslicer(input[i], ":")[1]
 		set = strings.ReplaceAll(set, ";", ",")
@@ -28,14 +29,24 @@ func day2SumOfPossibleGames(input []string) (sum int) {
 			setJ := day2Stringslicer(sets[j], " ")
 			value, _ := strconv.Atoi(setJ[1])
 			color := setJ[2]
-
+			if color == "red" && value > minRed {
+				minRed = value
+			}
+			if color == "green" && value > minGreen {
+				minGreen = value
+			}
+			if color == "blue" && value > minBlue {
+				minBlue = value
+			}
 			if (color == "red" && value > red) || (color == "green" && value > green) || (color == "blue" && value > blue) {
 				possible = false
-				break
 			}
 		}
+
+		sumMin += minBlue * minGreen * minRed
+
 		if possible {
-			sum += gameIndex
+			sumPossible += gameIndex
 		}
 	}
 	return
