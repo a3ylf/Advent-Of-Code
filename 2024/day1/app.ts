@@ -30,3 +30,19 @@ for (let i = 0; i < left.length-1; i++) {
 }
 
 console.log(t_diff)
+
+const count: Record<number,number> = {}
+
+right.forEach(num => {
+    count[num] = (count[num] || 0) + 1
+})
+
+let t = 0
+left.forEach( num => {
+    const x = num * count[num] || 0
+    t+=x
+})
+
+console.log(t)
+
+
